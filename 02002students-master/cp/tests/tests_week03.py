@@ -1,8 +1,8 @@
-from unitgrade import UTestCase, Report
-import unittest.mock
-import io
-import cp
 import math
+
+import cp
+from unitgrade import UTestCase, Report
+
 
 class Week03BodyTemperature(UTestCase):
     def test_body_Temperature(self):
@@ -24,11 +24,11 @@ class Week03CompareNumbers(UTestCase):
     def test_compare_numbers(self):
         with self.capture() as c:
             from cp.ex03.compare_numbers import compare_numbers
-        result = compare_numbers(5.,3.)
+        result = compare_numbers(5., 3.)
         self.assertEqual(result, 'the first number is greater')
-        result = compare_numbers(2.,7.)
+        result = compare_numbers(2., 7.)
         self.assertEqual(result, 'the second number is greater')
-        result = compare_numbers(4.,4.)
+        result = compare_numbers(4., 4.)
         self.assertEqual(result, 'the numbers are equal')
 
 
@@ -37,9 +37,10 @@ class Week03BACCalculator(UTestCase):
         with self.capture() as c:
             from cp.ex03.bac_calculator import bac_calculator
         result = bac_calculator(0.028, 80., "male", 2.)
-        self.assertEqual(result,0.02147058823529411)
+        self.assertEqual(result, 0.02147058823529411)
         result = bac_calculator(0.021, 70., "female", 2.)
-        self.assertEqual(result,0.020545454545454547)
+        self.assertEqual(result, 0.020545454545454547)
+
 
 class Week03Ackermann(UTestCase):
     def test_ackermann(self):
@@ -56,6 +57,7 @@ class Week03Ackermann(UTestCase):
         self.assertEqual(ackermann(3, 1), 13)
         self.assertEqual(ackermann(3, 2), 29)
 
+
 class Week03Exponential(UTestCase):
     def test_exponential_with_positive_power(self):
         from cp.ex03.exponential import exponential
@@ -70,7 +72,7 @@ class Week03Exponential(UTestCase):
         self.assertEqual(exponential(2, -1), 0.5)
         self.assertEqual(exponential(2, -2), 0.25)
         self.assertAlmostEqual(exponential(3, -3), 0.037037037037)
-        self.assertAlmostEqual(exponential(5, -4), 5**(-4) )
+        self.assertAlmostEqual(exponential(5, -4), 5 ** (-4))
 
     def test_exponential_with_zero_power(self):
         from cp.ex03.exponential import exponential
@@ -92,8 +94,9 @@ class Week03HeartAttack(UTestCase):
         self.assertEqual(heart_attack(45, 70, True), "high")
         self.assertEqual(heart_attack(11, 70, True), "high")
 
+
 class Week03SolarPanelTests(UTestCase):
-    
+
     def test_maybe(self):
         from cp.ex03.solar_panel import solar_panel
         self.assertEqual(solar_panel(True, False, False, False).strip().lower(), "maybe")
@@ -119,11 +122,11 @@ class Week03TheFunctionToBisect(UTestCase):
     def test_f(self):
         from cp.ex03.bisect import f
         self.assertAlmostEqual(f(0), 0.1411200080598672)
-        self.assertAlmostEqual(f(1),  0.4871688735635369 )
-        self.assertAlmostEqual(f(2),  -0.9484917234010158)
-        self.assertAlmostEqual(f(math.pi), 0.6145000731172406 )
+        self.assertAlmostEqual(f(1), 0.4871688735635369)
+        self.assertAlmostEqual(f(2), -0.9484917234010158)
+        self.assertAlmostEqual(f(math.pi), 0.6145000731172406)
         self.assertAlmostEqual(f(-10), 0.244199939520782)
-        self.assertAlmostEqual(f(117),  -0.9996260520700749)
+        self.assertAlmostEqual(f(117), -0.9996260520700749)
 
 
 class Week03IsThereARoot(UTestCase):
@@ -149,7 +152,7 @@ class Week03Bisect(UTestCase):
     def test_tolerances(self):
         from cp.ex03.bisect import bisect
         self.assertAlmostEqual(bisect(2, 3.5, 10), 2.75)
-        self.assertAlmostEqual(bisect(2, 3.5, 0.1),  3.03125)
+        self.assertAlmostEqual(bisect(2, 3.5, 0.1), 3.03125)
 
     def test_no_solution(self):
         from cp.ex03.bisect import bisect
@@ -163,18 +166,20 @@ class Week03Tests(Report):
     pack_imports = [cp]
     individual_imports = []
     questions = [
-                (Week03BodyTemperature, 10),
-                (Week03CompareNumbers, 10),
-                (Week03BACCalculator, 10),
-                (Week03Ackermann, 10),
-                (Week03Exponential, 10),
-                (Week03HeartAttack, 10),
-                (Week03SolarPanelTests, 10),
-                (Week03TheFunctionToBisect, 5),
-                (Week03IsThereARoot, 15),
-                (Week03Bisect, 15),
-                ]
+        (Week03BodyTemperature, 10),
+        (Week03CompareNumbers, 10),
+        (Week03BACCalculator, 10),
+        (Week03Ackermann, 10),
+        (Week03Exponential, 10),
+        (Week03HeartAttack, 10),
+        (Week03SolarPanelTests, 10),
+        (Week03TheFunctionToBisect, 5),
+        (Week03IsThereARoot, 15),
+        (Week03Bisect, 15),
+    ]
+
 
 if __name__ == '__main__':
     from unitgrade import evaluate_report_student
+
     evaluate_report_student(Week03Tests())
