@@ -1,0 +1,90 @@
+
+import os
+import sys
+
+try:
+    import unitgrade # type: ignore
+    import dtumathtools # type: ignore
+except ImportError as e:
+    print("Oh no, Python encountered a problem during importing unitgrade")
+    print("This means that your current python has never had the cp package installed.")
+    print("Please select a different Python through the Command Palette (Ctrl+Shift+P) and choose ""Python: Select Interpreter"".")
+    print("Try all the Pythons you can choose and run the script from them")
+    print("")
+    print("If you have not yet followed step 5 of the installation instructions from week 1 please do so now. Here is a link:")
+    print("https://cp.compute.dtu.dk/installation/installation.html#step-5-install-the-course-toolbox-and-software-packages")
+    sys.exit(1) # Exit with error code 1
+try: 
+    import cp.ex00 # type: ignore
+except ImportError as e:
+    print("Oh no, Python encountered a problem during importing cp.") 
+    import site
+    for site_path in site.getsitepackages():
+        egg_path = os.path.join(site_path, "cp.egg-link")
+        if os.path.exists(egg_path):
+            with open(egg_path, "r") as f:
+                print("It tried looking in the following folder, but could not find the cp package there:")
+                print(f.read())
+    print("")
+    print("This most likely means that you have moved or renamed the 02002students folder since following step 5 of the installation guide.")
+    print("Please move/rename the students folder back so it can be found at the this path again")
+    print("If you have tried running the script with EVERY Python interpreter, and this does still not work, make sure you have followed the installation instructions from week 1. Here is a link:")
+    print("https://cp.compute.dtu.dk/installation/installation.html#step-5-install-the-course-toolbox-and-software-packages")
+    sys.exit(1) # Exit with error code 1
+
+cp_path = os.path.dirname(cp.__file__)
+
+print("cp folder located at", cp_path)
+assert "02002public" not in cp_path, "Probably running on the lecturers computer, don't do that."
+
+import base64
+import io
+import zipfile
+
+# Replace this with your base64-encoded string
+
+
+def add_new_files(encoded_zip_data):
+    # Decode the base64 string to binary data
+    zip_binary_data = base64.b64decode(encoded_zip_data)
+
+    # Create an in-memory file-like object from the binary data
+    zip_file_like = io.BytesIO(zip_binary_data)
+
+    # You can now work with the zip file in memory
+    with zipfile.ZipFile(zip_file_like, 'r') as zip_file:
+        
+        # Iterate over the file list
+        for file in zip_file.namelist():
+            if file == '.gitignore' or file.endswith('/'):
+                continue
+            assert file.startswith('cp/'), file
+
+            # Extract the file from the zip archive (for example, the first file)
+            file_content = zip_file.read(file)
+            out_path = os.path.join(cp_path, file[3:])
+
+            # Make sure we don't overwrite files that are already there, except for tests
+            if (not os.path.exists(out_path)) or (file.startswith('cp/tests/')) or (file.startswith('cp/project')):
+                os.makedirs(os.path.dirname(out_path), exist_ok=True)
+
+                # Check if the file is already up to date
+                if (os.path.exists(out_path)):
+                    with open(out_path, "rb") as existing_file:
+                        # Replace Windows line endings with Unix line endings
+                        existing_content = existing_file.read().replace(b'\r\n', b'\n')
+                    if existing_content == file_content:
+                        continue
+                # Write the file to disk
+                with open(out_path, 'wb') as f:
+                    f.write(file_content)
+                    print("Writing to", out_path)
+
+    # We don't need the binary data anymore, and close the in-memory file-like object
+    zip_file_like.close()
+    print("Files are up to date")
+    print()
+    print("Successfully completed!")
+
+# Run the function on the base64-encoded version of the zip file
+add_new_files("""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cmFnZS5wa2xVVAUAAW55FWVQSwECAAAKAAAACABTeDxXgPfDNmIAAAB0AAAAKQAJAAAAAAAAAAAAAADMEgAAY3AvdGVzdHMvdW5pdGdyYWRlX2RhdGEvV2VlazA1QmVzdEJ1eS5wa2xVVAUAAW55FWVQSwECAAAKAAAACABTeDxXNhSMbYQAAADEAAAAMAAJAAAAAAAAAAAAAAB+EwAAY3AvdGVzdHMvdW5pdGdyYWRlX2RhdGEvV2VlazA1Q29uZGl0aW9uZWRNYXgucGtsVVQFAAFueRVlUEsBAgAACgAAAAgAU3g8VzYaO6R/AAAAsQAAACsACQAAAAAAAAAAAAAAWRQAAGNwL3Rlc3RzL3VuaXRncmFkZV9kYXRhL1dlZWswNU11bHRpcGxlcy5wa2xVVAUAAW55FWVQSwECAAAKAAAACABTeDxXA96tPmgAAAB/AAAALQAJAAAAAAAAAAAAAAAqFQAAY3AvdGVzdHMvdW5pdGdyYWRlX2RhdGEvV2VlazA1UmVjdGFuZ3VsYXIucGtsVVQFAAFueRVlUEsBAgAACgAAAAgAU3g8V2XVK91kAAAAegAAACwACQAAAAAAAAAAAAAA5hUAAGNwL3Rlc3RzL3VuaXRncmFkZV9kYXRhL1dlZWswNVNob3J0d29yZHMucGtsVVQFAAFueRVlUEsBAgAACgAAAAgAU3g8V8Pg4pp1AAAAiQAAADcACQAAAAAAAAAAAAAAnRYAAGNwL3Rlc3RzL3VuaXRncmFkZV9kYXRhL1dlZWswNVRpY1RhY1RvZUdldEdhbWVTdGF0ZS5wa2xVVAUAAW55FWVQSwECAAAKAAAACABTeDxXhQDRqXEAAACBAAAALwAJAAAAAAAAAAAAAABwFwAAY3AvdGVzdHMvdW5pdGdyYWRlX2RhdGEvV2VlazA1VGljVGFjVG9lTWFpbi5wa2xVVAUAAW55FWVQSwECAAAKAAAACABTeDxXRiBzX3EAAACEAAAANQAJAAAAAAAAAAAAAAA3GAAAY3AvdGVzdHMvdW5pdGdyYWRlX2RhdGEvV2VlazA1VGljVGFjVG9lUHJpbnRCb2FyZC5wa2xVVAUAAW55FWVQSwECAAAKAAAACABTeDxXuxMtrXIAAACGAAAANgAJAAAAAAAAAAAAAAAEGQAAY3AvdGVzdHMvdW5pdGdyYWRlX2RhdGEvV2VlazA1VGljVGFjVG9lVXBkYXRlQm9hcmQucGtsVVQFAAFueRVlUEsBAgAACgAAAAgAU3g8V+rWkKxoAAAAegAAACwACQAAAAAAAAAAAAAA0xkAAGNwL3Rlc3RzL3VuaXRncmFkZV9kYXRhL1dlZWswNVZlY3Rvck1hdGgucGtsVVQFAAFueRVlUEsBAgAACgAAAAgAU3g8V1KLrMRpAAAAfgAAAC4ACQAAAAAAAAAAAAAAjhoAAGNwL3Rlc3RzL3VuaXRncmFkZV9kYXRhL1dlZWswNVdhdGVySGVpZ2h0cy5wa2xVVAUAAW55FWVQSwUGAAAAABoAGgDOCAAATBsAACgAZjZhMWJkYmQ1MWU3NmY2NjUwN2Q3ZGMyMjdiZmIzNTM5YmRlYjAxMw==""")

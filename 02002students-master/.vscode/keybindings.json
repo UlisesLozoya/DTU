@@ -1,0 +1,6 @@
+[
+    {
+        "key": "shift+alt+e",
+        "command": "editor.debug.action.selectionToRepl"
+    }
+]

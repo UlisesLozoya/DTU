@@ -1,0 +1,35 @@
+## This stuff relates to unitgrade and build-stuff we don't care about.
+'
+__pycache__
+.idea
+*.token
+cp.egg-info
+cache.db
+*_grade.manifest
+*.artifacts.pkl
+.coveragerc
+*_tests_complete_grade.py
+# Lock file. DISABLE checking with gitlab (and syncing), so you *wnat* this on your computer, but *not* on the students computer.
+**/unitgrade_data/dont_check_remote.lock
+
+######################## Comment these out upon release. #############################
+#cp/ex03
+#cp/ex04
+#cp/ex05
+#cp/ex06
+#cp/ex07
+#cp/ex08
+#cp/ex09
+#cp/ex10
+#cp/ex11
+#cp/ex12
+#cp/ex13
+#cp/exam
+#cp/project1
+#cp/project2
+#cp/project3
+#cp/project4
+#cp/project5
+#cp/project6
+#cp/tests/tests_week01.py
+#/cp/
