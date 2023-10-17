@@ -7,7 +7,6 @@ def get_game_state(board: list) -> str:
     :param board: List of lists of strings representing the game board.
     :return: A string which is 'X' if player 'X' won, 'O' if player 'O' has won, 'Draw' if the game is a draw, or '-' if the game is ongoing.
     """
-    # TODO: Code has been removed from here.
     x = ["-"]
     first_row = board[0]
     second_row = board[1]
@@ -88,7 +87,7 @@ def update_board(board: list, player: str, position: list) -> list:
     :param position: List containing two integer indices [row, column] indicating the position to make a move.
     :return: Updated game board after the move.
     """
-    # TODO: Code has been removed from here.
+
     updated_board = board
     if board[position[0]][position[1]] == "-":
         updated_board[position[0]][position[1]] = player
@@ -102,7 +101,7 @@ def print_board(board: list):
 
     :param board: List of lists of strings representing the game board.
     """
-    # TODO: Code has been removed from here.
+
     first_line = board[0]
     second_line = board[1]
     third_line = board[2]
@@ -122,7 +121,7 @@ def tictactoe(board: list, player: str, position: list) -> list:
     :param position: List containing two integer indices [row, column] indicating the position to make a move.
     :return: Updated game board after the move.
     """
-    # TODO: Code has been removed from here.
+
     while True:
         print_board(update_board(board, player, position))
         if get_game_state(board) == "X" or get_game_state(board) == "O":
