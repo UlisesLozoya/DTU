@@ -2,9 +2,11 @@
 import math
 
 
-def bac_calculator(alcohol_consumed: float, weight: float, gender: str, time: float) -> float:
+def bac_calculator(
+    alcohol_consumed: float, weight: float, gender: str, time: float
+) -> float:
     """Calculate the blood alcohol concentration based on the alcohol consumed, body weight, and time since consumption.
-    
+
     :param alcohol_consumed: The total amount of alcohol consumed in grams (float)
     :param weight: The person's body weight in kilograms (float)
     :param gender: The person's gender, which must be a string of either "male" or "female" (str)
