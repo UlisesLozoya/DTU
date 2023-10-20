@@ -20,7 +20,7 @@ def heart_attack(age: int, weight: int, smoker: bool) -> str:
         return "high"
     if age > 30 and not smoker:
         return "low"
-
+    return "error"
 
 if __name__ == "__main__":
     a = int(input("Enter your age: "))
