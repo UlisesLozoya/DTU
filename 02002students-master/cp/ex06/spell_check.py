@@ -3,9 +3,6 @@
 
 def convert(string):
     text_list = list(string.split(" "))
-    # text_list = list(text_list.split(","))
-    # text_list = list(text_list.split("."))
-
     return text_list
 
 
