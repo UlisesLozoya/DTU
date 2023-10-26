@@ -28,7 +28,7 @@ class Week08Saving(UTestCase):
         open_mock.assert_called_with("output.txt", "w")
         open_mock.return_value.write.assert_called_once_with("test-data")
     
-    def test_save_str2txt(self):
+    def test_save_list2txt(self):
         from cp.ex08.saving import save_list2txt
         import cp.ex08.saving as saving
         open_mock = mock_open()
