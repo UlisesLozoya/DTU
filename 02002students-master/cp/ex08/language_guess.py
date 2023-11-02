@@ -1,7 +1,6 @@
 """Exercise 8.8: Guessing the language of a text."""
 
 
-
 def convert(string):
     text_list = list(string.split(" "))
     text2 = "".join(text_list)
@@ -44,6 +43,7 @@ def language_guess(filename: str) -> str:
     """
     freq_a = round(frequency_letter(filename, "a"), 1)
     freq_e = round(frequency_letter(filename, "e"), 1)
+    print
     if (7.2 <= freq_a <= 9.2) and (11.7 <= freq_e <= 13.7):
         return "English"
     elif (5.5 <= freq_a <= 7.5) and (15.1 <= freq_e <= 17.3):
@@ -57,5 +57,5 @@ def language_guess(filename: str) -> str:
 if __name__ == "__main__":
     print(frequency_letter("files/text2.txt", "a"))
     print(frequency_letter("files/text2.txt", "e"))
+    print(frequency_letter("files/hamlet.txt", "a"))
     print(language_guess("files/text2.txt"))
-
