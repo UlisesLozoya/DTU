@@ -1,6 +1,7 @@
 """The Rectangle-exercises 9.1-9.3."""
 from cp.ex09.vector import Vector
 
+
 class Rectangle:
     """A class that represents a Rectangle."""
 

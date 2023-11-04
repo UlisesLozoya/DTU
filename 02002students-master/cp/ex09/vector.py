@@ -24,6 +24,6 @@ class Vector:
 
 
 if __name__ == "__main__":
-    v = Vector(2, 3)
-    v_scale = v.scale(1.5)
+    v1 = Vector(2, 3)
+    v_scale = v1.scale(1.5)
     print(v_scale)
