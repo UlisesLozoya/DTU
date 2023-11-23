@@ -10,7 +10,7 @@ def bacterial_area(npy_path: str) -> float:
     :param npy_path: Path to the image data file in NumPy format.
     :return: The percentage of area in an image where there are bacteria.
     """
-    img = np.load(npy_path)
+    img = np.load('C:/Users/Ulises/Desktop/02002students/02002students-master/cp/ex11/files/bacteria.npy')
     rows = np.shape(img)[0]
     cols = np.shape(img)[1]
     pixels = np.ones((rows, cols))
